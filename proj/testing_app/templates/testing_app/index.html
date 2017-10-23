@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <link href="/static/css/main.css" rel="stylesheet">
+      <title>
+        testing app
+      </title>
+    </head>
+    <body>
+      <div class="container" id="index">
+        <h1>
+          Приложение для тестирования функции
+        </h1>
+        <form method='post'>
+          {% csrf_token %}
+          <p><b>Введите данные:</b></p>
+          <p><textarea rows="10" cols="45" name="text" placeholder='[{"a": 1, "b": 2}, ...]'></textarea></p>
+          <p><input type="submit" value="Отправить"></p>
+        </form>
+      </div>
+    </body>
+</html>
