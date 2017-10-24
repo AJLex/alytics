@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import DataSet, SetValues
 
-# Register your models here.
+
+admin.site.register(DataSet)
+admin.site.register(SetValues)
