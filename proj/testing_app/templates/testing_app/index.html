@@ -16,7 +16,8 @@
           {% csrf_token %}
           <p><b>Введите данные:</b></p>
           <p><textarea rows="10" cols="45" name="text" placeholder='[{"a": 1, "b": 2}, ...]'></textarea></p>
-          <p><input type="submit" value="Отправить"></p>
+          <p><button type="submit" name="save" value="save">Сохранить данные</button></p>
+          <p><button type="submit" name="calc" value="calc">Обработать данные</button></p>
         </form>
       </div>
     </body>
