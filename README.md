@@ -7,7 +7,7 @@
 * RabbitMQ
 * celery
 
-### Set dependencie
+### Set dependencies
 ```bash
 pip install -r requirements.txt
 ```
