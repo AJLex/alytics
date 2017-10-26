@@ -7,11 +7,13 @@ from django.utils import timezone
 
 from testing_app.models import DataSet, SetValues, SetValuesError
 
+
 # Сlass needs to be able to write an exception
 class CallbackTask(Task):
     def __init__(self):
         self.set_id = None
         self.pk = None
+
     #  Function writes the arisen exceptions  into the database,
     #  updates values calculation result status and updates data set status
     def on_failure(self, exc, task_id, args, kwargs, einfo):
@@ -25,10 +27,9 @@ class CallbackTask(Task):
         set_values = SetValues.objects.filter(data_set=data_set).get(pk=self.pk)
         set_values.result = exc
         set_values.save()
-        if data_set.status != False:
+        if data_set.status is not False:
             data_set.status = False
             data_set.save()
-
 
 
 @shared_task(bind=True, base=CallbackTask)

@@ -25,11 +25,12 @@ def save_input_data(form):
         for values_index in range(len(input_data)):
             # If input data is OK, values write to data base
             SetValues(
-                data_set = DataSet.objects.get(set_id=set_id),
-                value_a = int(input_data[values_index]['a']),
-                value_b = int(input_data[values_index]['b'])
+                data_set=DataSet.objects.get(set_id=set_id),
+                value_a=int(input_data[values_index]['a']),
+                value_b=int(input_data[values_index]['b'])
             ).save()
-    except :
+        return True
+    except:
         data_set = DataSet.objects.get(set_id=set_id).delete()
 
 
@@ -42,7 +43,7 @@ def starting_calculation(sets):
             pk = set_values.pk
             # Starting tasks chain
             chain(
-                load_set_values.signature(args=(set_id, pk),queue='fir'),
+                load_set_values.signature(args=(set_id, pk), queue='fir'),
                 test_func.signature(queue='sec'),
                 save_test_func_result.signature(queue='thi')
             )()
@@ -51,9 +52,9 @@ def starting_calculation(sets):
 # Function gets result executing calculation if any
 def get_results(sets, context):
     if sets.filter(status=False):
-        context = {"main_status": False}
+        context["main_status"] = False
     else:
-        context = {"main_status": True}
+        context["main_status"] = True
     context['values'] = SetValues.objects.all().order_by('data_set')
     context['exceptions'] = SetValuesError.objects.all()
     return context
@@ -64,7 +65,9 @@ def index(request):
     sets = DataSet.objects.all()
     context = {}
     if form.get('save'):
-        save_input_data(form)
+        status = save_input_data(form)
+        if status is None:
+            context['input_error'] = "input error"
     if form.get('calc') and sets:
         starting_calculation(sets)
     if sets:
