@@ -1,5 +1,24 @@
+#up {
+  padding: 50px;
+  margin: auto;
+}
+
 #index {
-  width: 600px;
+  /*width: 800px;*/
+  padding-left: 50px;
+  float: left;
+  margin: auto;
+}
+
+#table_div {
+  padding-left: 50px;
+  width: auto;
+  margin: auto;
+  float: left;
+  overflow:auto;
+}
+
+#input_err {
   padding: 10px;
   margin: auto;
 }

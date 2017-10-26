@@ -4,21 +4,72 @@
       <meta charset="utf-8">
       <link href="/static/css/main.css" rel="stylesheet">
       <title>
-        testing app
+        Тестирование
       </title>
     </head>
     <body>
-      <div class="container" id="index">
-        <h1>
+      <div id="up">
+        <h2>
           Приложение для тестирования функции
-        </h1>
+        </h2>
+        Статус последней проверки:
+      <b>{{ main_status }}</b>
+      </div>    
+      <div class="container" id="index">
         <form method='post'>
           {% csrf_token %}
-          <p><b>Введите данные:</b></p>
+          <span><b>Введите данные:</b></span>
           <p><textarea rows="10" cols="45" name="text" placeholder='[{"a": 1, "b": 2}, ...]'></textarea></p>
           <p><button type="submit" name="save" value="save">Сохранить данные</button></p>
           <p><button type="submit" name="calc" value="calc">Обработать данные</button></p>
         </form>
+      </div>
+      <div id="table_div">
+        <table cellspacing="0" cellpadding="1" border="1">
+          <tr>
+            Последние результаты
+          </tr>
+          <tr>
+            <th>Set ID</th>
+            <th>Values ID</th>
+            <th>Last result</th>
+          </tr>
+          {% for set_values in values %}
+          <tr>
+              <td> {{ set_values.data_set.set_id }}</td>
+              <td> {{ set_values.pk }}</td>
+              <td> {{ set_values.result }}</td>
+         </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div id="table_div">
+        <table cellspacing="0" cellpadding="1" border="1">
+          <tr>
+            Исключения
+          </tr>
+          <tr>
+            <th>Set ID</th>
+            <th>Date</th>
+            <th>Error</th>
+          </tr>
+          {% for err in exceptions %}
+          <tr>
+            <td>{{ err.data_set.set_id }} </td>
+            <td>{{ err.err_date }} </td>
+            <td>{{ err.err }} </td>
+          </tr>
+          {% endfor %}
+          <!-- <tr>
+            <th>Набор данных</th>
+            <th>Ошибка</th>
+            <th>Подробнее</th>
+          </tr>
+          <tr>
+            <td>Ячейка 3</td>
+            <td>Ячейка 4</td> -->
+          </tr>
+        </table>
       </div>
     </body>
 </html>

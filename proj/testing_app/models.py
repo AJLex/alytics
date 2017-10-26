@@ -5,15 +5,15 @@ from django.db import models
 
 class DataSet(models.Model):
     set_id = models.IntegerField()
-    upload_date = models.DateTimeField(auto_now_add=True)
+    upload_date = models.DateTimeField()
     status = models.NullBooleanField(blank=True)
+
 
 class SetValues(models.Model):
     data_set = models.ForeignKey(DataSet, on_delete=models.CASCADE)
     value_a = models.IntegerField()
     value_b = models.IntegerField()
     result = models.TextField(blank=True)
-
 
     def load_values(self):
         return json.dumps({
@@ -26,6 +26,6 @@ class SetValues(models.Model):
 
 class SetValuesError(models.Model):
     data_set = models.ForeignKey(DataSet, on_delete=models.CASCADE)
-    err_date = models.DateTimeField(auto_now_add=True)
+    err_date = models.DateTimeField()
     err = models.TextField()
     err_info = models.TextField()
