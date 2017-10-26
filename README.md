@@ -4,7 +4,9 @@
 ### Requirements
 
 python 3.4.4 or higher
+---
 RabbitMQ
+---
 celery
 
 ### Set dependencie
